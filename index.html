@@ -1,48 +1,297 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Think Before You Scan - Security Alert</title>
+    <title>QR Code Safety Guide</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
+        :root {
+            --primary: #fff; /* Slate 900 */
+            --accent: #FF6727;  /* Blue 500 */
+            --danger: #ef4444;  /* Red 500 */
+            --safe: #22c55e;    /* Green 500 */
+            --bg: #f8fafc;      /* Slate 50 */
+            --card-bg: #ffffff;
+            --text: #334155;
+            --text-light: #64748b;
+        }
+        
+        * {
             box-sizing: border-box;
         }
-
-        .poster-container {
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            overflow: hidden; /* Ensures the image respects the border radius */
-            max-width: 800px; /* Adjust based on your preferred maximum display size */
-            width: 100%;
-            display: flex;
-            justify-content: center;
+        
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: #FF6727;
+            text-align: center;
+            padding: 4rem 1rem;
+            border-bottom: 4px solid var(--accent);
+            position: relative;
+        }
+        
+        .company-logo {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            height: 50px; 
+            width: auto;
         }
 
-        .poster-image {
+        /* Language Toggle Button Style */
+        .lang-toggle {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--bg);
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .lang-toggle:hover {
+            background: var(--accent);
+            color: white;
+        }
+        
+        h1 { 
+            margin: 0 0 0.5rem 0; 
+            font-size: 2.5rem; 
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+        
+        p.subtitle { 
+            font-size: 2rem; 
+            color: #FF6727;
+            margin: 0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: -2rem auto 2rem auto;
+            padding: 0 1rem;
+            position: relative;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+        }
+        
+        .card.danger { border-left: 6px solid var(--danger); }
+        .card.safe { border-left: 6px solid var(--safe); }
+        
+        h2 {
+            color: var(--primary);
+            font-size: 1.75rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #334155;
+        }
+        
+        .danger h2 { color: var(--danger); }
+        .safe h2 { color: var(--safe); }
+        
+        .intro-text {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+        }
+        
+        .grid-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .list-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+        
+        .icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            margin-top: -0.2rem;
+        }
+        
+        .item-content h3 {
+            margin: 0 0 0.25rem 0;
+            font-size: 1.1rem;
+            color: #334155;
+        }
+        
+        .item-content p {
+            margin: 0;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* New Footer Image Style */
+        .footer-image {
             width: 100%;
             height: auto;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
             display: block;
+        }
+        
+        @media (max-width: 600px) {
+            header { padding: 6rem 1rem 3rem 1rem; }
+            .company-logo { top: 1rem; left: 1rem; height: 35px; }
+            .lang-toggle { top: 1rem; right: 1rem; padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+            h1 { font-size: 2rem; }
+            p.subtitle { font-size: 1.5rem; }
+            .card { padding: 1.5rem; }
+            .container { margin-top: -1rem; }
+            footer { padding: 1.5rem 1rem; }
         }
     </style>
 </head>
-
 <body>
+    <header>
+        <img src="https://via.placeholder.com/150x50?text=Your+Logo" alt="Company Logo" class="company-logo">
+        
+        <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn">🇹🇭 ภาษาไทย</button>
+        
+        <h1 data-key="headerTitle">Seen this?</h1>
+        <p class="subtitle" data-key="headerSubtitle">You may already be under attack from Quishing</p>
+    </header>
+    
+    <div class="container">
+        <div class="card danger">
+            <h2 data-key="introTitle">Slow Down, Think Before You Scan</h2>
+            <p class="intro-text" data-key="introDesc">Because human eyes can't read a QR code, it's impossible to know where it leads until you scan it, making it the perfect disguise for malicious links. Keep these core rules in mind:</p>
+            <div class="grid-list">
+                <div class="list-item">
+                    <div class="icon">🚫</div>
+                    <div class="item-content">
+                        <h3 data-key="rule1Title">Unknown Sources</h3>
+                        <p data-key="rule1Desc">Avoid scanning QR codes from unknown sources.</p>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="icon">🔗</div>
+                    <div class="item-content">
+                        <h3 data-key="rule2Title">Verify the URL</h3>
+                        <p data-key="rule2Desc">If unsure, contact the sender or official source.</p>
+                    </div>
+                </div>
+                <div class="list-item">
+                    <div class="icon">🔒</div>
+                    <div class="item-content">
+                        <h3 data-key="rule3Title">Protect Your Information</h3>
+                        <p data-key="rule3Desc">Never share sensitive data or access payment accounts through suspicious QR codes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <div class="poster-container">
-        <img src="poster1.png" alt="B.Grimm Family - Think Before You Scan QR Security Poster" class="poster-image">
+        <div class="card safe">
+            <h2 data-key="safeTitle">🛡️ QR Codes are not always safe — they may lead to cyber attacks or data theft.</h2>
+            <p class="intro-text" data-key="safeDesc">Here's how to stay safe when using QR codes:</p>
+            <img src="C:\Users\zjubilan.j_bgrimmgro\Desktop\Website dev\Designer.png" alt="QR Code Safety Tips" style="width: 100%; height: auto; border-radius: 8px; margin-top: 1rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);">
+        </div>
     </div>
+    
+    <footer>
+        <img src="C:\Users\zjubilan.j_bgrimmgro\Desktop\Website dev\bottom.png" alt="Footer Banner" class="footer-image">
+        
+        <p data-key="footerText">Cyber Awareness & Security Guide • Stay Safe Online</p>
+    </footer>
 
+    <script>
+        const translations = {
+            en: {
+                btnText: "🇹🇭 ภาษาไทย",
+                headerTitle: "Seen this?",
+                headerSubtitle: "You may already be under attack from Quishing",
+                introTitle: "Slow Down, Think Before You Scan",
+                introDesc: "Because human eyes can't read a QR code, it's impossible to know where it leads until you scan it, making it the perfect disguise for malicious links. Keep these core rules in mind:",
+                rule1Title: "Unknown Sources",
+                rule1Desc: "Avoid scanning QR codes from unknown sources.",
+                rule2Title: "Verify the URL",
+                rule2Desc: "If unsure, contact the sender or official source.",
+                rule3Title: "Protect Your Information",
+                rule3Desc: "Never share sensitive data or access payment accounts through suspicious QR codes.",
+                safeTitle: "🛡️ QR Codes are not always safe — they may lead to cyber attacks or data theft.",
+                safeDesc: "Here's how to stay safe when using QR codes:",
+                footerText: "Cyber Awareness & Security Guide • Stay Safe Online"
+            },
+            th: {
+                btnText: "🇬🇧 English",
+                headerTitle: "เมื่อคุณเห็นสิ่งนี้",
+                headerSubtitle: "คุณอาจกำลังตกเป็นเหยื่อของการโจมตีแบบ Quishing (คิวอาร์โค้ดปลอม)",
+                introTitle: "ช้าลงสักนิด คิดก่อนสแกน",
+                introDesc: "เนื่องจากสายตามนุษย์ไม่สามารถอ่านคิวอาร์โค้ดได้ เราจึงไม่รู้เลยว่ามันนำไปสู่ที่ใดจนกว่าจะสแกน ทำให้มันเป็นการปลอมตัวที่สมบูรณ์แบบสำหรับลิงก์อันตราย โปรดจำกฎหลักเหล่านี้ไว้:",
+                rule1Title: "แหล่งที่ไม่รู้จัก",
+                rule1Desc: "หลีกเลี่ยงการสแกนคิวอาร์โค้ดจากแหล่งที่คุณไม่รู้จักหรือไม่น่าเชื่อถือ",
+                rule2Title: "ตรวจสอบ URL เสมอ",
+                rule2Desc: "หากไม่แน่ใจ ให้ติดต่อผู้ส่งหรือตรวจสอบจากแหล่งที่มาอย่างเป็นทางการ",
+                rule3Title: "ปกป้องข้อมูลของคุณ",
+                rule3Desc: "อย่าแชร์ข้อมูลส่วนตัวที่ละเอียดอ่อน หรือทำธุรกรรมผ่านคิวอาร์โค้ดที่น่าสงสัยเด็ดขาด",
+                safeTitle: "🛡️ คิวอาร์โค้ดไม่ได้ปลอดภัยเสมอไป — อาจนำไปสู่การโจมตีทางไซเบอร์หรือการขโมยข้อมูล",
+                safeDesc: "นี่คือวิธีรักษาความปลอดภัยเมื่อใช้งานคิวอาร์โค้ด:",
+                footerText: "คู่มือความตระหนักรู้และความปลอดภัยทางไซเบอร์ • ใช้งานออนไลน์อย่างปลอดภัย"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'th' : 'en';
+            
+            // Update button text
+            document.getElementById('langBtn').innerText = translations[currentLang].btnText;
+
+            // Update all elements with a data-key attribute
+            const elements = document.querySelectorAll('[data-key]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
+            });
+            
+            // Change font-family slightly for better Thai readability if desired
+            if(currentLang === 'th') {
+                document.body.style.fontFamily = "'Sarabun', 'Segoe UI', system-ui, sans-serif";
+            } else {
+                document.body.style.fontFamily = "'Segoe UI', system-ui, -apple-system, sans-serif";
+            }
+        }
+    </script>
 </body>
-
 </html>
